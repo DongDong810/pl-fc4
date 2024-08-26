@@ -1,0 +1,62 @@
+# Model
+model:
+  name: FC4
+
+# Train
+train:
+  # Epoch
+  start_epoch: 0
+  end_epoch: 2000
+  check_val_every_n_epoch: 5  # run validation every n epoch
+
+  # Optimizer & Scheduler mode
+  optimizer:
+    mode: 'adam'
+  scheduler:
+    mode: ReduceLROnPlateau
+
+# Validation & Visualization
+valid:
+  visualize_result: false
+  visualize_sample: 1
+
+test:
+  visualize_result: false
+  
+data:
+  name: 'colorchecker'       # just a name
+  root: '../data/gehler/'    # {DATA_PATH_FOR_THIS_MODEL}
+  batch_size: 16
+  num_workers: 8
+
+criterion:
+  key_pairs:
+    # list of loss terms for this model (criterion.py)
+    - 'angular_loss'
+
+saver:  # save model ckpt, training state
+  monitor_keys:
+    # key/criteria to determine best (l for low,h for high)
+    - 'val-total_loss/l'   # low total loss is good
+  save_every_n_epoch: 10   # checkpoint auto save interval
+  backup_every_n_epoch: 100 # backup interval
+
+# Extra for FC4
+input_size:
+  train:
+    # for resizing
+    w: 512
+    h: 512
+  test:
+    # no resizing
+    w: 0
+    h: 0
+
+use_confidence_weighted_pooling: true
+
+k_folds:
+  # "tr_split"
+  train: [0, 1]
+  val: [2]
+  # "te_split"
+  test: [0]

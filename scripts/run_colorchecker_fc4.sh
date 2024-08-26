@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=2,3 python main.py model.name=FC4 model.ver=v1 model.solver=v1

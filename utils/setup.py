@@ -13,7 +13,7 @@ import cv2,rawpy
 # Generic util functions #
 ##########################
 
-@rank_zero_only
+@rank_zero_only  # only done in master process
 def init_path_and_expname(cfg):
     # set date_time_model
     if cfg.load.ckpt_path != None and cfg.load.load_state:
